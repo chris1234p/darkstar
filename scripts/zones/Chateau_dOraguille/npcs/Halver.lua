@@ -164,12 +164,16 @@ end;
 -----------------------------------
 
 function onEventFinish(player,csid,option)
-    -- printf("CSID: %u",csid);
-    -- printf("RESULT: %u",option);
+    --printf("CSID: %u",csid);
+    --printf("RESULT: %u",option);
 
     if (csid == 501) then
         player:addMission(BASTOK,THE_EMISSARY_SANDORIA);
         player:setVar("MissionStatus",4);
+    elseif (csid == 564 and option == 1) then
+        player:completeMission(TOAU,CONFESSIONS_OF_ROYALTY);
+        player:addMission(TOAU,EASTERLY_WINDS);
+        player:delKeyItem(RAILLEFALS_LETTER);
     elseif (csid == 503) then
         player:setVar("MissionStatus",9);
     elseif (csid == 508) then
@@ -196,7 +200,8 @@ function onEventFinish(player,csid,option)
         if (player:getFreeSlotsCount() == 0) then
             player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,181);
             player:setVar("Flagsando",1);
-        else    player:addItem(181);
+        else    
+            player:addItem(181);
             player:messageSpecial(ITEM_OBTAINED,181);
         end
         player:setVar("MissionStatus",0);
@@ -211,9 +216,5 @@ function onEventFinish(player,csid,option)
     elseif (csid == 102) then
         finishMissionTimeline(player,3,csid,option);
         player:setVar("Wait1DayM8-1_date", os.date("%j"));
-    elseif (csid == 564 and option == 1) then
-        player:completeMission(TOAU,CONFESSIONS_OF_ROYALTY);
-        player:addMission(TOAU,EASTERLY_WINDS);
-        player:delKeyItem(RAILLEFALS_LETTER);
     end
 end;
